@@ -5,7 +5,7 @@ import AddTodoForm from './components/AddTodoForm.jsx';
 import EditForm from './components/EditForm.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import './app.css';
+import './App.css';
 
 export default function App() {
 	const [todos, setTodos] = useState(() => {
@@ -16,6 +16,7 @@ export default function App() {
 			return [];
 		}
 	});
+
 	const [todo, setTodo] = useState('');
 	const [isEditing, setIsEditing] = useState(false);
 	const [currentTodo, setCurrentTodo] = useState({});
@@ -24,16 +25,16 @@ export default function App() {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
-	function handleAddInputChange(e) {
+	const handleAddInputChange = (e) => {
 		setTodo(e.target.value);
-	}
+	};
 
-	function handleEditInputChange(e) {
+	const handleEditInputChange = (e) => {
 		setCurrentTodo({ ...currentTodo, text: e.target.value });
 		// console.log(currentTodo);
-	}
+	};
 
-	function handleAddFormSubmit(e) {
+	const handleAddFormSubmit = (e) => {
 		try {
 			e.preventDefault();
 
@@ -50,53 +51,61 @@ export default function App() {
 			setTodo('');
 			toast.success('Task successfully added', {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		} catch (error) {
 			toast.error(error, {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		}
-	}
+	};
 
-	function handleEditFormSubmit(e) {
+	const handleEditFormSubmit = (e) => {
 		try {
 			e.preventDefault();
 			handleUpdateTodo(currentTodo.id, currentTodo);
-			toast.success('Task successfully updated', {
+			toast.info('Task successfully updated', {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		} catch (error) {
 			toast.error(error, {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		}
-	}
+	};
 
-	function handleDeleteClick(id) {
+	const handleDeleteClick = (id) => {
 		try {
 			const removeItem = todos.filter((todo) => {
 				return todo.id !== id;
@@ -104,41 +113,46 @@ export default function App() {
 			setTodos(removeItem);
 			toast.warn('Task Deleted', {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		} catch (error) {
 			toast.error(error, {
 				position: 'bottom-center',
+				theme: 'colored',
 				autoClose: 5000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
+				draggablePercent: 60,
 			});
 		}
-	}
+	};
 
-	function handleUpdateTodo(id, updatedTodo) {
+	const handleUpdateTodo = (id, updatedTodo) => {
 		const updatedItem = todos.map((todo) => {
 			return todo.id === id ? updatedTodo : todo;
 		});
 		setIsEditing(false);
 		setTodos(updatedItem);
-	}
+	};
 
-	function handleEditClick(todo) {
+	const handleEditClick = (todo) => {
 		setIsEditing(true);
 		setCurrentTodo({ ...todo });
-	}
+	};
 
 	return (
 		<div className='App'>
+			{todos.length > 0 && <h1>Total # {todos.length}</h1>}
 			{isEditing ? (
 				<EditForm
 					currentTodo={currentTodo}
@@ -153,13 +167,17 @@ export default function App() {
 					onAddFormSubmit={handleAddFormSubmit}
 				/>
 			)}
-
 			<ul className='todo-list'>
 				{todos.map((todo) => (
-					<TodoItem todo={todo} onEditClick={handleEditClick} onDeleteClick={handleDeleteClick} />
+					<TodoItem
+						key={todo.id}
+						todo={todo}
+						onEditClick={handleEditClick}
+						onDeleteClick={handleDeleteClick}
+					/>
 				))}
 			</ul>
-			<ToastContainer />
+			<ToastContainer draggablePercent={60} />
 		</div>
 	);
 }

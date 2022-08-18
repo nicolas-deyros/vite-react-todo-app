@@ -3,12 +3,15 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 
 export default function TodoItem({ todo, onEditClick, onDeleteClick }) {
-	// console.log(todo.id);
 	return (
 		<li key={todo.id}>
-			{todo.text}
-			<TiEdit onClick={() => onEditClick(todo)} />
-			<RiCloseCircleLine onClick={() => onDeleteClick(todo.id)} />
+			<div className='todo__description' onClick={() => onEditClick(todo)}>
+				{todo.text}
+			</div>
+			<div className='todo__actions'>
+				<TiEdit title='edit' onClick={() => onEditClick(todo)} />
+				<RiCloseCircleLine title='delete' onClick={() => onDeleteClick(todo.id)} />
+			</div>
 		</li>
 	);
 }

@@ -1,6 +1,5 @@
-import React from 'react';
-import { FcCancel } from 'react-icons/fc';
-import { GrUpdate } from 'react-icons/gr';
+import React, { useEffect, useRef } from 'react';
+import { MdCancel, MdCheckCircle } from 'react-icons/md';
 
 export default function EditForm({
 	currentTodo,
@@ -8,19 +7,27 @@ export default function EditForm({
 	onEditInputChange,
 	onEditFormSubmit,
 }) {
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		inputRef.current.focus();
+	});
 	return (
 		<form onSubmit={onEditFormSubmit}>
-			<h2>Edit Todo</h2>
-			<label htmlFor='updateTodo'>Update todo: </label>
-			<input
-				name='updateTodo'
-				type='text'
-				placeholder='Update todo'
-				value={currentTodo.text}
-				onChange={onEditInputChange}
-			/>
-			<GrUpdate title='Update' type='submit' onClick={onEditFormSubmit} />
-			<FcCancel title='Cancel' onClick={() => setIsEditing(false)} />
+			<h2>Update Todo</h2>
+			<div className='form__input'>
+				<input
+					name='updateTodo'
+					type='text'
+					placeholder='Update todo'
+					maxLength={55}
+					ref={inputRef}
+					value={currentTodo.text}
+					onChange={onEditInputChange}
+				/>
+				<MdCheckCircle title='Update' type='submit' onClick={onEditFormSubmit} />
+				<MdCancel title='Cancel' onClick={() => setIsEditing(false)} />
+			</div>
 		</form>
 	);
 }
