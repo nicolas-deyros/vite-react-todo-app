@@ -154,11 +154,7 @@ export default function App() {
 	return (
 		<div className='App'>
 			{todos.length > 0 && (
-				<motion.h1
-					initial={{ y: -100 }}
-					animate={{ y: -10 }}
-					tansition={{ delay: 1.5, duration: 1.5 }}
-					className='counter'>
+				<motion.h1 tansition={{ delay: 1.5, duration: 1.5 }} className='counter'>
 					Total # {todos.length}
 				</motion.h1>
 			)}

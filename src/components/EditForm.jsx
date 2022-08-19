@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { MdCancel, MdCheckCircle } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 export default function EditForm({
 	currentTodo,
@@ -14,7 +15,13 @@ export default function EditForm({
 	});
 	return (
 		<form onSubmit={onEditFormSubmit}>
-			<h2 className='form__title'>Update Todo</h2>
+			<motion.h2
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				tansition={{ delay: 1.5, duration: 1.5 }}
+				className='form__title'>
+				Update Todo
+			</motion.h2>
 			<div className='form__input_container'>
 				<input
 					className='form__input'

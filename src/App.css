@@ -52,7 +52,7 @@ form {
 	justify-content: center;
 	gap: 0.5rem;
 	min-width: 240px;
-	width: calc(100% - 25vw);
+	width: calc(100% - 20vw);
 	padding: 14px 32px 14px 16px;
 	border-radius: 4px 0 0 4px;
 	border: 2px solid #5d0cff;
@@ -81,7 +81,7 @@ input::placeholder {
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0;
-	margin: 1rem;
+	margin: 2rem 0;
 }
 
 .todo__list__item {
