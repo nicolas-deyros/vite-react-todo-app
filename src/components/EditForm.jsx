@@ -14,9 +14,10 @@ export default function EditForm({
 	});
 	return (
 		<form onSubmit={onEditFormSubmit}>
-			<h2>Update Todo</h2>
-			<div className='form__input'>
+			<h2 className='form__title'>Update Todo</h2>
+			<div className='form__input_container'>
 				<input
+					className='form__input'
 					name='updateTodo'
 					type='text'
 					placeholder='Update todo'

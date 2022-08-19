@@ -5,6 +5,7 @@ import AddTodoForm from './components/AddTodoForm.jsx';
 import EditForm from './components/EditForm.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { motion } from 'framer-motion';
 import './App.css';
 
 export default function App() {
@@ -152,7 +153,15 @@ export default function App() {
 
 	return (
 		<div className='App'>
-			{todos.length > 0 && <h1>Total # {todos.length}</h1>}
+			{todos.length > 0 && (
+				<motion.h1
+					initial={{ y: -100 }}
+					animate={{ y: -10 }}
+					tansition={{ delay: 1.5, duration: 1.5 }}
+					className='counter'>
+					Total # {todos.length}
+				</motion.h1>
+			)}
 			{isEditing ? (
 				<EditForm
 					currentTodo={currentTodo}
@@ -167,7 +176,7 @@ export default function App() {
 					onAddFormSubmit={handleAddFormSubmit}
 				/>
 			)}
-			<ul className='todo-list'>
+			<ul className='todo__list'>
 				{todos.map((todo) => (
 					<TodoItem
 						key={todo.id}
@@ -177,7 +186,7 @@ export default function App() {
 					/>
 				))}
 			</ul>
-			<ToastContainer draggablePercent={60} />
+			<ToastContainer draggablePercent={60} limit={2} />
 		</div>
 	);
 }
